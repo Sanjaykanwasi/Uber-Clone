@@ -11,7 +11,6 @@ const userSchema = new mongoose.Schema({
     },
     lastname: {
       type: String,
-      required: true,
       minlength: [3, "Your Last Name should contain atleast 3 characters."],
     },
   },
@@ -25,7 +24,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     select: false,
-    minlength: [8, "Your password should contain atleast 8 characters"],
+    minlength: [8, "Your password should contain atleast 8 characters."],
   },
   socketId: {
     type: String,

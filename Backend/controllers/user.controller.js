@@ -1,9 +1,9 @@
 const userModel = require("../models/user.model");
 const userService = require("../services/user.service");
 const { validationResult } = require("express-validator");
-const blackListedTokenModel = require("../models/blacklistToken.model");
+const blacklistedTokenModel = require("../models/blacklistToken.model");
 
-// Route 1 Logic to Register User
+// Logic to Register User
 module.exports.registerUser = async (req, res, next) => {
   const errors = validationResult(req);
 
@@ -31,7 +31,7 @@ module.exports.registerUser = async (req, res, next) => {
   res.status(201).json({ token, user });
 };
 
-// Route 2 Logic to Login User
+//Logic to Login User
 module.exports.loginUser = async (req, res, next) => {
   const errors = validationResult(req);
 
@@ -59,7 +59,7 @@ module.exports.loginUser = async (req, res, next) => {
   res.status(200).json({ token, user });
 };
 
-// Route 3 Logic to Get User Profile
+//Logic to Get User Profile
 module.exports.getUserProfile = async (req, res, next) => {
   res.status(200).json(req.user);
 };
@@ -68,6 +68,6 @@ module.exports.logoutUser = async (req, res, next) => {
   res.clearCookie("token");
   const token = req.cookies.token || req.headers.authorization.split(" ")[1];
 
-  await blackListedTokenModel.create({ token });
+  await blacklistedTokenModel.create({ token });
   res.status(200).json({ message: "Logged Out Successfully" });
 };

@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const { body } = require("express-validator");
 const captainController = require("../controllers/captain.controller");
+const authMiddleware = require("../middlewares/auth.middleware");
 
+// Rotue 1: Register Captain
 router.post(
   "/register",
   [
@@ -27,6 +29,32 @@ router.post(
       .withMessage("Invalid Vehicle Type"),
   ],
   captainController.registerCaptain
+);
+
+// Route 2: Login Captain
+router.post(
+  "/login",
+  [
+    body("email").isEmail().withMessage("Please enter a valid email"),
+    body("password")
+      .isLength({ min: 8 })
+      .withMessage("Password should contain atleast 8 characters"),
+  ],
+  captainController.loginCaptain
+);
+
+// Route 3: Get Captain Profile
+router.get(
+  "/profile",
+  authMiddleware.authCaptain,
+  captainController.getCaptainProfile
+);
+
+// Route 4: logout Captain
+router.get(
+  "/logout",
+  authMiddleware.authCaptain,
+  captainController.logoutCaptain
 );
 
 module.exports = router;

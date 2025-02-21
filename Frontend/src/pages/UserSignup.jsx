@@ -42,7 +42,6 @@ const UserSignup = () => {
       navigate("/home");
     }
 
-    console.log(userData);
     setEmail("");
     setPassword("");
     setFirstName("");
